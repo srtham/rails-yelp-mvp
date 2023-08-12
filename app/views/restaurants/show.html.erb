@@ -1,0 +1,25 @@
+<div class="container">
+  <h1><%= @restaurant.name %></h1>
+  <strong>Address: </strong> <%= @restaurant.address %><br>
+  <strong>Category: </strong> <%= @restaurant.category.capitalize %><br>
+  <strong>Phone Number: </strong><%= @restaurant.phone_number %>
+
+  <hr>
+
+  <h2>Comments (<%= @restaurant.reviews.length %>)</h2>
+    <%= render 'reviews/form' %>
+    <% @restaurant.reviews.each do |review| %>
+    <div> <%= review.content %> - <strong><%= review.rating %></strong> (<%= review.created_at %>) - <%= link_to 'delete', review_path(review), data: {
+      turbo_method: 'delete',
+      turbo_confirm: 'Are you sure?'
+    } %> </div>
+  <% end %>
+
+  <hr>
+
+  <%= link_to "Back to Main Page", restaurants_path %>
+  <%= link_to "Delete Restaurant", restaurant_path(@restaurant), data: {
+    turbo_method: 'delete',
+    turbo_confirm: 'Are you sure?' } %>
+
+</div>
